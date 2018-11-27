@@ -112,8 +112,15 @@ Frog.prototype.onKeyUp = function(event) {
 };
 
 Frog.prototype.collideWith = function(o) { //para saber cuando colisiona
-  var colX = this.x + this.w > o.x && this.x + this.w < o.x + o.w + this.w;
-  var colY = this.y + this.h > o.y && this.y + this.h < o.y + o.h + this.h;
+  var colX = this.x + this.w/1.2 > o.x && this.x + this.w < o.x + o.w + this.w;
+  var colY = this.y + this.h/1.2 > o.y && this.y + this.h < o.y + o.h + this.h;
+ 
+  return colX && colY;
+}
+
+Frog.prototype.collideNoAdvance = function(t) { //para saber cuando colisiona
+  var colX = this.x + this.w/1.2 > t.x && this.x + this.w < t.x + t.w + this.w;
+  var colY = this.y + this.h/1.2 > t.y && this.y + this.h < t.y + t.h + this.h;
  
   return colX && colY;
 }
