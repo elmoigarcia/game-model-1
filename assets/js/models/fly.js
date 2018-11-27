@@ -1,12 +1,12 @@
-function Fly(ctx, x, y) {
+function Fly(ctx) {
   this.ctx = ctx;
   this.img = new Image();
   this.img.src = "./img/mosca.png";
 
-  this.x = x;
-  this.y = y;
-  this.w = 50;
-  this.h = 50;
+  this.x = FLIES_RANDOM;;
+  this.y = 5;
+  this.w = 45;
+  this.h = 45;
 }
 
 Fly.prototype.draw = function() {

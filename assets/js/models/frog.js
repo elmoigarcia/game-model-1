@@ -111,16 +111,22 @@ Frog.prototype.onKeyUp = function(event) {
   }
 };
 
-Frog.prototype.collideWith = function(o) { //para saber cuando colisiona
+Frog.prototype.collideWith = function(o) { //para saber cuando colisiona con los coches
   var colX = this.x + this.w/1.2 > o.x && this.x + this.w < o.x + o.w + this.w;
   var colY = this.y + this.h/1.2 > o.y && this.y + this.h < o.y + o.h + this.h;
  
   return colX && colY;
 }
 
-Frog.prototype.collideNoAdvance = function(t) { //para saber cuando colisiona
+Frog.prototype.collideNoAdvance = function(t) { //para saber cuando colisiona con los arboles
   var colX = this.x + this.w/1.2 > t.x && this.x + this.w < t.x + t.w + this.w;
   var colY = this.y + this.h/1.2 > t.y && this.y + this.h < t.y + t.h + this.h;
+ 
+  return colX && colY;
+}
+Frog.prototype.collideEatFly = function(f) { //para saber cuando colisiona con la mosca
+  var colX = this.x + this.w/3 > f.x && this.x + this.w < f.x + f.w + this.w;
+  var colY = this.y + this.h/3 > f.y && this.y + this.h < f.y + f.h + this.h;
  
   return colX && colY;
 }

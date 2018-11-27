@@ -4,13 +4,17 @@ function Game(canvasElement) {
   
   this.bg = new Background(this.ctx);
   this.frog = new Frog(this.ctx);
+  this.fly = new Fly(this.ctx);
   
+
   this.cars1 = [];
   this.trees = [];
   this.flies = [];
+  console.log(this.flies)
   this.drawCount = 0;
   this.drawIntervalId = undefined;
-  this.fly = Math.floor(Math.random() * this.flies.length);
+  
+  this.flies.push(this.fly);
 }
 
 Game.prototype.clear = function () {
@@ -20,8 +24,9 @@ Game.prototype.clear = function () {
 Game.prototype.draw = function() {  
   this.bg.draw();
   this.frog.draw();
+  this.fly.draw();
   this.addTree();
-  this.addFly(this.fly);
+  
   
   this.cars1.forEach(function(car) {
     car.draw();
@@ -29,9 +34,7 @@ Game.prototype.draw = function() {
   this.trees.forEach(function(tree) {
     tree.draw();
   });
-  this.flies.forEach(function(fly) {
-    fly.draw();
-  });
+  
    
   this.drawCount++;
 
@@ -46,15 +49,25 @@ Game.prototype.start = function() {
     this.clear();
     this.draw();
     this.move();
+
     if (this.isGameOver()) { 
       this.stop();
       alert("GAME OVER");
     }
+
     if (this.isCollision()) {
       this.frog.x -= this.frog.vx;
       this.frog.y -= this.frog.vy;
-      
     }
+
+    if (this.eatFly()) {
+      this.frog.x = 600;
+      this.frog.y = 600;
+      this.clear();
+      this.draw();
+      console.log(this.flies)
+    }
+
   }.bind(this), DRAW_INTERVAL_MS);
 };
 
@@ -89,7 +102,9 @@ Game.prototype.stop = function () {
 }
 
 Game.prototype.eatFly = function () {
-
+  return this.flies.some(function(f) {
+    return this.frog.collideEatFly(f);
+  }.bind(this));
 }
 
 Game.prototype.addCar = function () {
@@ -108,11 +123,7 @@ Game.prototype.addTree = function () {
   this.trees.push(new Tree(this.ctx, 1000, 280));
 }
 
-Game.prototype.addFly = function () {
-  this.flies.push(new Fly(this.ctx, 100, 5));
-  this.flies.push(new Fly(this.ctx, 400, 5));
-  this.flies.push(new Fly(this.ctx, 700, 5));
-  this.flies.push(new Fly(this.ctx, 1000, 5));
-  
-}
+// Game.prototype.addFly = function () {
+//   this.flies.push(new Fly(this.ctx));  
+// }
 
