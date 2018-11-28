@@ -8,8 +8,8 @@ function Frog(ctx) {
 
   this.x = 600;
   this.y = 600;
-  this.w = 40;
-  this.h = 40;
+  this.w = 50;
+  this.h = 50;
 
   this.vx = 0;
   this.vy = 0;
@@ -127,6 +127,5 @@ Frog.prototype.collideNoAdvance = function(t) { //para saber cuando colisiona co
 Frog.prototype.collideEatFly = function(f) { //para saber cuando colisiona con la mosca
   var colX = this.x + this.w/3 > f.x && this.x + this.w < f.x + f.w + this.w;
   var colY = this.y + this.h/3 > f.y && this.y + this.h < f.y + f.h + this.h;
- 
   return colX && colY;
 }

@@ -4,17 +4,15 @@ function Game(canvasElement) {
   
   this.bg = new Background(this.ctx);
   this.frog = new Frog(this.ctx);
-  this.fly = new Fly(this.ctx);
   
-
   this.cars1 = [];
   this.trees = [];
   this.flies = [];
   console.log(this.flies)
   this.drawCount = 0;
   this.drawIntervalId = undefined;
+  this.addFly();
   
-  this.flies.push(this.fly);
 }
 
 Game.prototype.clear = function () {
@@ -24,7 +22,6 @@ Game.prototype.clear = function () {
 Game.prototype.draw = function() {  
   this.bg.draw();
   this.frog.draw();
-  this.fly.draw();
   this.addTree();
   
   
@@ -35,24 +32,28 @@ Game.prototype.draw = function() {
     tree.draw();
   });
   
+  this.flies.forEach(function(fly) {
+    fly.draw();
+  });
    
   this.drawCount++;
 
   if (this.drawCount % 200 === 0 ){
     this.addCar();
     this.drawCount = 0; 
-  }
+  };
 }
 
 Game.prototype.start = function() {
   this.intervalId = setInterval(function() {
     this.clear();
-    this.draw();
     this.move();
-
+    this.draw();
+    
     if (this.isGameOver()) { 
       this.stop();
       alert("GAME OVER");
+      document.location.reload();
     }
 
     if (this.isCollision()) {
@@ -61,13 +62,11 @@ Game.prototype.start = function() {
     }
 
     if (this.eatFly()) {
+      this.flies.pop();
+      this.addFly();
       this.frog.x = 600;
       this.frog.y = 600;
-      this.clear();
-      this.draw();
-      console.log(this.flies)
     }
-
   }.bind(this), DRAW_INTERVAL_MS);
 };
 
@@ -123,7 +122,7 @@ Game.prototype.addTree = function () {
   this.trees.push(new Tree(this.ctx, 1000, 280));
 }
 
-// Game.prototype.addFly = function () {
-//   this.flies.push(new Fly(this.ctx));  
-// }
+Game.prototype.addFly = function () {
+  this.flies.push(new Fly(this.ctx));  
+}
 

@@ -1,9 +1,9 @@
-function Fly(ctx) {
+function Fly(ctx, x) {
   this.ctx = ctx;
   this.img = new Image();
   this.img.src = "./img/mosca.png";
 
-  this.x = FLIES_RANDOM;;
+  this.x = flyRandom();
   this.y = 5;
   this.w = 45;
   this.h = 45;

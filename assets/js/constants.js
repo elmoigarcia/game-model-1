@@ -8,4 +8,7 @@ var KEY_LEFT = 37;
 
 var CAR_INTERVAL = 100;
 
-var FLIES_RANDOM = Math.round(Math.random()*1100)
+
+function flyRandom(){
+  return Math.round(Math.random()*1100)
+}
