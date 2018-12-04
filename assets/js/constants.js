@@ -6,10 +6,17 @@ var KEY_RIGHT = 39;
 var KEY_DOWN = 40;
 var KEY_LEFT = 37;
 
-var FRICTION = 0.9;
-var FROG_SPEED = 7;
-var CAR_FAST = -2;
+var FRICTION = 1;
+var FROG_SPEED = 6;
+var CAR_SPEED = -3;
 var WOOD_SPEED = 4;
+
+var WOOD_W = 220;
+
+var CAR_INTERVAL = 200;
+
+var CAR4_X = 400;
+var CAR2_X = 1550;
 
 
 function flyRandom(min, max) {

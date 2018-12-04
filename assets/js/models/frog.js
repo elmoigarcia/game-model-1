@@ -55,8 +55,8 @@ Frog.prototype.move = function() {
  
   this.x += this.vx;
   this.y += this.vy;
-  // this.vx *= FRICTION;
-  // this.vy *= FRICTION;
+  this.vx *= FRICTION;
+  this.vy *= FRICTION;
 
   if (this.y >= this.ctx.canvas.height - this.h) {
     this.vy = 0;
@@ -137,4 +137,9 @@ Frog.prototype.collide = function(o) { //para saber cuando colisiona
   return colX && colY;
 }
 
-
+Frog.prototype.kill = function () {
+  this.img.src = "./img/frog_dead.png";
+  this.img.onload = function() {
+    this.draw();
+  }.bind(this)
+}

@@ -5,8 +5,8 @@ function Wood(ctx) {
 
   this.x = 0;
   this.y = 11;
-  this.w = 220;
-  this.h = 40;
+  this.w = WOOD_W;
+  this.h = 50;
 
   this.vx = WOOD_SPEED;
 }
