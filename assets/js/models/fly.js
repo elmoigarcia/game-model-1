@@ -4,7 +4,7 @@ function Fly(ctx, x) {
   this.img.src = "./img/mosca.png";
 
   this.x = x ;
-  this.y = 7;
+  this.y = 20;
   this.w = 30;
   this.h = 30;
 }

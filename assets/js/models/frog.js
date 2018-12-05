@@ -5,7 +5,7 @@ function Frog(ctx) {
   
   this.img.frames = 3;
   this.img.frameIndex = 2;
-  this.img.rows = 8;
+  this.img.rows = 9;
   this.currentIndex = 2;
   this.cutY = 0;
 
@@ -138,8 +138,8 @@ Frog.prototype.collide = function(o) { //para saber cuando colisiona
 }
 
 Frog.prototype.kill = function () {
-  this.img.src = "./img/frog_dead.png";
-  this.img.onload = function() {
-    this.draw();
-  }.bind(this)
+  this.cutY = 8;
+  // this.img.onload = function() {
+  //   this.draw();
+  // }.bind(this)
 }

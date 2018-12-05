@@ -31,7 +31,7 @@ Car1.prototype.move = function() {
 function Car2(ctx, x) {
   this.ctx = ctx;
   this.img = new Image();
-  this.img.src = "./img/car5.png";
+  this.img.src = "./img/car2.png";
 
   this.w = 180;
   this.h = 90;
@@ -54,12 +54,11 @@ Car2.prototype.draw = function() {
   )
 };
 
-
-
 Car2.prototype.move = function() {
   this.x += this.vx;
 
 };
+
 function Car3(ctx, x) {
   this.ctx = ctx;
   this.img = new Image();
@@ -129,7 +128,7 @@ function Moto(ctx) {
   this.w = 180;
   this.h = 90;
 
-  this.vx = 10;
+  this.vx = 12;
 }
 
 Moto.prototype.draw = function() {
@@ -159,7 +158,7 @@ function Moto2(ctx) {
   this.y = 490;
   
 
-  this.vx = 8;
+  this.vx = 12;
 }
 
 Moto2.prototype.draw = function() {

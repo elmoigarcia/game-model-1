@@ -1,6 +1,11 @@
 
 function Game(canvasElement) {
-  this.ctx = canvasElement.getContext("2d");
+
+  this.canvas = canvasElement;
+  console.log(this.canvas);
+  this.canvas.width = window.innerWidth;
+  this.canvas.height = 600;
+  this.ctx = this.canvas.getContext("2d");
   
   this.bg = new Background(this.ctx);
   this.frog = new Frog(this.ctx);
@@ -17,6 +22,12 @@ function Game(canvasElement) {
   this.drawIntervalId = undefined;
   this.addFly();
 
+}
+
+Game.prototype.showScore = function () {
+  this.ctx.fillStyle="rgb(59,59,59)";
+  this.ctx.font="bold 20px Verdana";
+  this.ctx.fillText("Score: " + this.fliesEat.length * 100, 20, 35); 
 }
 
 Game.prototype.clear = function () {
@@ -42,6 +53,7 @@ Game.prototype.draw = function() {
   this.flies.forEach(function(fly) {
     fly.draw();
   });
+
   this.cocodriles.forEach(function(coco) {
     coco.draw();
   });
@@ -52,26 +64,21 @@ Game.prototype.draw = function() {
     this.addCar();
     this.drawCount = 0; 
   };
-  
- 
 }
 
 Game.prototype.start = function() {
   if(!this.isRunning()){
 
     this.initCar();
-
+    
     this.intervalId = setInterval(function() {
       this.clear();
       this.draw();
       this.move();
+      this.showScore();
 
       if (this.isGameOver() || this.inCocodrile()) { 
-        this.stop();
-        this.frog.kill();
-        this.isDead();
-        alert("GAME OVER");
-        document.location.reload();
+        this.gameOver();
       }
 
       if (this.isCollision()) {
@@ -88,9 +95,7 @@ Game.prototype.start = function() {
 
       if (this.inWood()) {
         if(this.frog.x >= this.ctx.canvas.width - this.frog.w || this.frog.x <= 0){
-          this.stop();
-          alert("GAME OVER");
-          document.location.reload();
+          this.gameOver();
         } else {
             if(this.wood.vx === -WOOD_SPEED){
             this.frog.x = this.wood.x - this.frog.w;
@@ -104,6 +109,7 @@ Game.prototype.start = function() {
       if(this.fliesEat.length == 1){
         if(this.trees.length == 0){
           this.addTree();
+          CAR_SPEED = -3.5;
         } 
       }
       
@@ -112,7 +118,7 @@ Game.prototype.start = function() {
       if(this.fliesEat.length == 2){
         if(this.woods.length == 0){
           this.woods.push(this.wood);
-          //this.cars.push(new Moto(this.ctx));
+          // this.cars.push(new Moto(this.ctx));
         } 
       }
 
@@ -122,7 +128,8 @@ Game.prototype.start = function() {
         if(this.trees.length == 4){
           this.trees = [];
           this.addCocodrile();
-          //this.cars.push(new Moto2(this.ctx));
+          WOOD_SPEED = 8;
+          // this.cars.push(new Moto2(this.ctx));
         }
       }
       //LEVEL 4
@@ -173,6 +180,13 @@ Game.prototype.isRunning = function() {
 Game.prototype.countFlies = function() {
   var flyPop = this.flies.pop();
   return this.fliesEat.push(flyPop);
+}
+
+Game.prototype.gameOver = function() {
+  this.stop();
+  this.frog.kill();
+  alert("GAME OVER");
+  document.location.reload();
 }
 
 Game.prototype.isGameOver = function() { 
