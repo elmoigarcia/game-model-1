@@ -17,17 +17,44 @@ function Game(canvasElement) {
   this.fliesEat = [];
   this.woods = [];
   this.cocodriles = [];
+  this.score = this.fliesEat.length * 100;
 
   this.drawCount = 0;
   this.drawIntervalId = undefined;
   this.addFly();
 
+  this.$playPannel = $('#intro-page');
+  this.$scorePannel = $('#page-scores');
+  
+  $('#play-box').click(this.onClickPlayBtn.bind(this));
+  $('#scores-box').click(this.onClickScoreBtn.bind(this));
+  $('#back-box').click(this.onClickBackBtn.bind(this));
+  $('#play-again-box').click(this.onClickPlayAgainBtn.bind(this));
+} //FALTA TERMINAR PANTALLA DE GAME OVER
+
+Game.prototype.onClickPlayBtn = function () {
+  this.$playPannel.hide();
+  this.start();
+}
+Game.prototype.onClickScoreBtn = function () {
+  this.$playPannel.hide();
+  this.$scorePannel.show();
+  
+}
+Game.prototype.onClickBackBtn = function () {
+  this.$playPannel.show();
+  this.$scorePannel.hide();
+  
+}
+Game.prototype.onClickPlayAgainBtn = function () {
+  this.start();
+  
 }
 
 Game.prototype.showScore = function () {
   this.ctx.fillStyle="rgb(59,59,59)";
   this.ctx.font="bold 20px Verdana";
-  this.ctx.fillText("Score: " + this.fliesEat.length * 100, 20, 35); 
+  this.ctx.fillText("Level " + this.fliesEat.length, 20, 35); 
 }
 
 Game.prototype.clear = function () {

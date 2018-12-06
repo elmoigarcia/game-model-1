@@ -9,7 +9,7 @@ function Frog(ctx) {
   this.currentIndex = 2;
   this.cutY = 0;
 
-  this.x = 600;
+  this.x = this.ctx.canvas.width / 2;
   this.y = 600;
   this.w = 55;
   this.h = 55;

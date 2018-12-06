@@ -13,7 +13,62 @@ img {
   height: 190px;
 }
 
-.intro-page {
+#intro-page {
   position: absolute;
   display: block;
+  background-image: url("../img/frog.png");
+  background-repeat: no-repeat;
+  width: 520px;
+  height: 600px;
+  margin-left: 450px;
+}
+
+#intro-page button{
+  width: 20rem;
+  height: 3rem;
+  display: block;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  margin: 10px auto;
+
+}
+#page-scores button{
+  width: 20rem;
+  height: 3rem;
+  display: block;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  margin: 10px auto;
+
+}
+.box-btn {
+  margin-top: 400px;
+}
+
+.btn-play {
+  background-color: red;
+}
+.btn-back {
+  background-color: orange;
+}
+.btn-score {
+  background-color: blue;
+  margin-bottom: 25px;
+}
+
+#page-scores{
+  display: block;
+  /* background-image: url("../img/frog.png");
+  background-repeat: no-repeat; */
+  width: 520px;
+  height: 600px;
+  margin-left: 450px;
+  background-color: gray;
+  font-size: 2rem;
+  text-align: center;
+
 }

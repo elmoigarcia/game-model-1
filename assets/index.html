@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -27,25 +27,38 @@
     <audio id="music" src="./music/music_frogger.mp3" type="audio/midi" volume="50" loop="true"> </audio>
 
     <div id="intro-page">
+      <div class="box-btn">
      <div id="play-box">
-       <h1 id="play-button">PLAY</h1>
+       <button class="btn-play">PLAY!!!</button>
      </div>  
      <div id="scores-box">
-       <h1 id="scores-button">BEST SCORES</h1>
+        <button class="btn-score">SCORES</button>
      </div>
     </div>
+    </div>
 
-    <div class="page-scores">
+    <div id="page-scores" style="display: none;">
             <h3 class="list-scores">BEST SCORES</h3>
             <ul id="scores"></ul>
+            <div id="back-box">
+                <button class="btn-back">BACK</button>
+            </div>      
+    </div>
+    <div id="page-gameover" style="display: none;">
+            <h3 class="game-over">GAME OVER</h3>
+            <input type="text">
+            <div id="play-again-box">
+                <button class="btn-play-again">PLAY AGAIN!!!</button>
+            </div>      
     </div>
       
 
 <div class="container">
  <canvas id="my-canvas"></canvas>
-</div> 
-  <div class="logo-frogger">
+ <div class="logo-frogger">
     <img src="img/frogger-logo-new.png" alt="logo-frogger">
   </div>
+</div>
+ 
 </body>
 </html>
