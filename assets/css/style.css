@@ -45,21 +45,49 @@ img {
   margin: 10px auto;
 
 }
+#page-gameover button{
+  width: 20rem;
+  height: 3rem;
+  display: block;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  margin: 10px auto;
+}
 .box-btn {
   margin-top: 400px;
+}
+.gameover-box {
+  padding-top: 400px;
+}
+input {
+  width: 18rem;
+  height: 2rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
 }
 
 .btn-play {
   background-color: red;
 }
-.btn-back {
-  background-color: orange;
-}
+
 .btn-score {
   background-color: blue;
   margin-bottom: 25px;
 }
 
+.btn-back {
+  background-color: orange;
+}
+.btn-save {
+  background-color: rgb(7, 180, 248);
+  
+}
+.btn-play-again {
+  background-color: rgb(200, 7, 248);
+  margin-bottom: 25px;
+}
 #page-scores{
   display: block;
   /* background-image: url("../img/frog.png");
@@ -68,6 +96,19 @@ img {
   height: 600px;
   margin-left: 450px;
   background-color: gray;
+  font-size: 2rem;
+  text-align: center;
+
+}
+#page-gameover{
+  display: block;
+  position: absolute;
+  background-image: url("../img/frog_gameover.png");
+  background-repeat: no-repeat;
+  width: 520px;
+  height: 600px;
+  margin-left: 450px;
+  background-color: #67a653;
   font-size: 2rem;
   text-align: center;
 

@@ -2,7 +2,6 @@
 function Game(canvasElement) {
 
   this.canvas = canvasElement;
-  console.log(this.canvas);
   this.canvas.width = window.innerWidth;
   this.canvas.height = 600;
   this.ctx = this.canvas.getContext("2d");
@@ -17,7 +16,6 @@ function Game(canvasElement) {
   this.fliesEat = [];
   this.woods = [];
   this.cocodriles = [];
-  this.score = this.fliesEat.length * 100;
 
   this.drawCount = 0;
   this.drawIntervalId = undefined;
@@ -25,12 +23,14 @@ function Game(canvasElement) {
 
   this.$playPannel = $('#intro-page');
   this.$scorePannel = $('#page-scores');
+  this.$gameoverPannel = $('#page-gameover');
   
   $('#play-box').click(this.onClickPlayBtn.bind(this));
   $('#scores-box').click(this.onClickScoreBtn.bind(this));
   $('#back-box').click(this.onClickBackBtn.bind(this));
   $('#play-again-box').click(this.onClickPlayAgainBtn.bind(this));
-} //FALTA TERMINAR PANTALLA DE GAME OVER
+  $('#save-box').click(this.onClickSaveSAcorenBtn.bind(this));
+} 
 
 Game.prototype.onClickPlayBtn = function () {
   this.$playPannel.hide();
@@ -42,13 +42,32 @@ Game.prototype.onClickScoreBtn = function () {
   
 }
 Game.prototype.onClickBackBtn = function () {
-  this.$playPannel.show();
-  this.$scorePannel.hide();
+  document.location.reload();
   
 }
 Game.prototype.onClickPlayAgainBtn = function () {
-  this.start();
-  
+ document.location.reload();
+}
+
+Game.prototype.onClickSaveSAcorenBtn = function () {
+  var score = this.fliesEat.length * 100;
+  var name = document.getElementById("input-name").value;
+    if(this.name !== "") {
+    this.addScore(name, score);
+    this.$scorePannel.show();
+    }
+    
+}
+
+Game.prototype.addScore = function (name, value) {
+  var score = getScore();
+  score[name] = value;
+  localStorage.setItem('score', JSON.stringify(score));
+}
+
+Game.prototype.getScore = function () {
+  var score = localStorage.getItem('score') || '{}';
+  return JSON.parse(score); 
 }
 
 Game.prototype.showScore = function () {
@@ -152,7 +171,7 @@ Game.prototype.start = function() {
       //LEVEL 3
 
       if(this.fliesEat.length == 3){
-        if(this.trees.length == 4){
+        if(this.trees.length == 5){
           this.trees = [];
           this.addCocodrile();
           WOOD_SPEED = 8;
@@ -169,8 +188,8 @@ Game.prototype.start = function() {
       //LEVEL 5
 
       if(this.fliesEat.length == 5){
-          WOOD_SPEED = 8;
-          CAR_SPEED = -8; 
+          //WOOD_SPEED = 8;
+          //CAR_SPEED = -8; 
           CAR_INTERVAL = 110;
       }
 
@@ -200,21 +219,29 @@ Game.prototype.move = function() {
   
 };
 
+// PARA SABER SI ESTA EN MARCHA EL JUEGO
+
 Game.prototype.isRunning = function() {
   return this.intervalId !== undefined;
 }
+
+// ELIMINAMOS DEL ARRAY DE MOSCAS Y LO AÑADIMOS AL DE MOSCAS COMIDAS
 
 Game.prototype.countFlies = function() {
   var flyPop = this.flies.pop();
   return this.fliesEat.push(flyPop);
 }
 
+// PARAMOS EL JUEGO Y MOSTRAMOS EL PANEL DE GAME OVER
+
 Game.prototype.gameOver = function() {
   this.stop();
-  this.frog.kill();
-  alert("GAME OVER");
-  document.location.reload();
+  // document.location.reload();
+  this.$gameoverPannel.show(); 
+  
 }
+
+// COLISIONES
 
 Game.prototype.isGameOver = function() { 
   return this.cars.some(function(o) {
@@ -246,10 +273,14 @@ Game.prototype.inCocodrile = function () {
   }.bind(this));
 }
 
+// STOP
+
 Game.prototype.stop = function () { 
   clearInterval(this.intervalId);
   this.drawIntervalId = undefined;
 }
+
+// AÑADIR OBSATCULOS, MOSCAS ETC...
 
 Game.prototype.addCar = function () {
   this.cars.push(new Car1(this.ctx));
@@ -274,10 +305,11 @@ Game.prototype.addTree = function () {
   this.trees.push(new Tree(this.ctx, 400, 280));
   this.trees.push(new Tree(this.ctx, 700, 280));
   this.trees.push(new Tree(this.ctx, 1000, 280));
+  this.trees.push(new Tree(this.ctx, 1300, 280));
 }
 
 Game.prototype.addFly = function () {
-  this.flies.push(new Fly(this.ctx, flyRandom(50, 1100))) 
+  this.flies.push(new Fly(this.ctx, flyRandom(200, 1100))) 
 }
 
 Game.prototype.addMoto = function () {

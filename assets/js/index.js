@@ -28,4 +28,3 @@ function addScore(name, value) {
 }
 
 
-// 
