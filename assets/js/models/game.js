@@ -36,6 +36,7 @@ function Game(canvasElement) {
 Game.prototype.showBestScores = function () {
   var bestScores = this.getScore();
   var liScores = [];
+   var li = "";
 
   for (prop in bestScores) {
     if (bestScores.hasOwnProperty(prop)) {
@@ -50,10 +51,8 @@ Game.prototype.showBestScores = function () {
     return b.value - a.value;
   });
 
-
-  var li = "";
   for (var i=0; i < liScores.length; i++) {
-    li = "<li>" + liScores[i].key + "  " + liScores[i].value + "</li>";
+    li = "<li>" + liScores[i].key + "_____" + liScores[i].value + "</li>";
     this.$listScores.append(li);
     if (i === 9) {
       break;
@@ -88,13 +87,12 @@ Game.prototype.onClickSaveSAcorenBtn = function () {
     if(this.name !== "") {
     this.addScore(name, score);
     this.$gameoverPannel.hide();
-    this.$scorePannel.show();
-    }
-    
+    document.location.reload();
+    }  
 }
 
 Game.prototype.addScore = function (name, value) {
-  var score = getScore();
+  var score = this.getScore();
   score[name] = value;
   localStorage.setItem('score', JSON.stringify(score));
 }
@@ -271,8 +269,8 @@ Game.prototype.countFlies = function() {
 Game.prototype.gameOver = function() {
   this.stop();
   this.$gameoverPannel.show(); 
-  this.getScore();
-  this.showBestScores();
+  // this.getScore();
+  // this.showBestScores();
   
 }
 

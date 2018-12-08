@@ -91,20 +91,19 @@ input {
 #page-scores{
   display: block;
   position: absolute;
-  /* background-image: url("../img/frog.png");
-  background-repeat: no-repeat; */
   width: 520px;
   height: 600px;
   margin-left: 450px;
-  background-color: gray;
   font-size: 2rem;
   font-family: 'Delius', cursive;
+  font-weight: bolder;
 }
 
 h3 {
   text-align: center;
   font-size: 3rem;
   margin: 1rem;
+  
 }
 li{
   margin-left: 150px;
