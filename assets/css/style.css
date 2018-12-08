@@ -90,6 +90,7 @@ input {
 }
 #page-scores{
   display: block;
+  position: absolute;
   /* background-image: url("../img/frog.png");
   background-repeat: no-repeat; */
   width: 520px;
@@ -97,8 +98,16 @@ input {
   margin-left: 450px;
   background-color: gray;
   font-size: 2rem;
-  text-align: center;
+  font-family: 'Delius', cursive;
+}
 
+h3 {
+  text-align: center;
+  font-size: 3rem;
+  margin: 1rem;
+}
+li{
+  margin-left: 150px;
 }
 #page-gameover{
   display: block;

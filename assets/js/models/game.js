@@ -24,6 +24,7 @@ function Game(canvasElement) {
   this.$playPannel = $('#intro-page');
   this.$scorePannel = $('#page-scores');
   this.$gameoverPannel = $('#page-gameover');
+  this.$listScores = $('#scores');
   
   $('#play-box').click(this.onClickPlayBtn.bind(this));
   $('#scores-box').click(this.onClickScoreBtn.bind(this));
@@ -32,19 +33,51 @@ function Game(canvasElement) {
   $('#save-box').click(this.onClickSaveSAcorenBtn.bind(this));
 } 
 
+Game.prototype.showBestScores = function () {
+  var bestScores = this.getScore();
+  var liScores = [];
+
+  for (prop in bestScores) {
+    if (bestScores.hasOwnProperty(prop)) {
+      liScores.push({
+        "key": prop,
+        "value": bestScores[prop]
+      });
+    }
+  }
+
+  liScores.sort(function(a, b) {
+    return b.value - a.value;
+  });
+
+
+  var li = "";
+  for (var i=0; i < liScores.length; i++) {
+    li = "<li>" + liScores[i].key + "  " + liScores[i].value + "</li>";
+    this.$listScores.append(li);
+    if (i === 9) {
+      break;
+    }
+  }
+};
+
 Game.prototype.onClickPlayBtn = function () {
   this.$playPannel.hide();
   this.start();
 }
+
 Game.prototype.onClickScoreBtn = function () {
   this.$playPannel.hide();
   this.$scorePannel.show();
-  
+  this.showBestScores();
+  this.getScore()
 }
+
 Game.prototype.onClickBackBtn = function () {
   document.location.reload();
   
 }
+
 Game.prototype.onClickPlayAgainBtn = function () {
  document.location.reload();
 }
@@ -54,6 +87,7 @@ Game.prototype.onClickSaveSAcorenBtn = function () {
   var name = document.getElementById("input-name").value;
     if(this.name !== "") {
     this.addScore(name, score);
+    this.$gameoverPannel.hide();
     this.$scorePannel.show();
     }
     
@@ -236,8 +270,9 @@ Game.prototype.countFlies = function() {
 
 Game.prototype.gameOver = function() {
   this.stop();
-  // document.location.reload();
   this.$gameoverPannel.show(); 
+  this.getScore();
+  this.showBestScores();
   
 }
 
