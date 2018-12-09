@@ -11,7 +11,7 @@ function Cocodrile(ctx) {
   this.w = 200;
   this.h = 50;
 
-  this.vx = WOOD_SPEED;
+  this.vx = COCO_SPEED;
 
   this.drawCount = 0
 }

@@ -34,26 +34,26 @@ function Game(canvasElement) {
 } 
 
 Game.prototype.showBestScores = function () {
-  var bestScores = this.getScore();
-  var liScores = [];
-   var li = "";
+  this.bestScores = this.getScore();
+  this.liScores = [];
+  this.li = "";
 
-  for (prop in bestScores) {
-    if (bestScores.hasOwnProperty(prop)) {
-      liScores.push({
+  for (prop in this.bestScores) {
+    if (this.bestScores.hasOwnProperty(prop)) {
+      this.liScores.push({
         "key": prop,
-        "value": bestScores[prop]
+        "value": this.bestScores[prop]
       });
     }
   }
 
-  liScores.sort(function(a, b) {
+  this.liScores.sort(function(a, b) {
     return b.value - a.value;
   });
 
-  for (var i=0; i < liScores.length; i++) {
-    li = "<li>" + liScores[i].key + "_____" + liScores[i].value + "</li>";
-    this.$listScores.append(li);
+  for (var i=0; i < this.liScores.length; i++) {
+    this.li = "<li><span class='span-name'>" + this.liScores[i].key + "</span><span class='span-score'>" + this.liScores[i].value + "</span></li>";
+    this.$listScores.append(this.li);
     if (i === 9) {
       break;
     }
@@ -73,8 +73,7 @@ Game.prototype.onClickScoreBtn = function () {
 }
 
 Game.prototype.onClickBackBtn = function () {
-  document.location.reload();
-  
+  document.location.reload(); 
 }
 
 Game.prototype.onClickPlayAgainBtn = function () {
@@ -82,30 +81,31 @@ Game.prototype.onClickPlayAgainBtn = function () {
 }
 
 Game.prototype.onClickSaveSAcorenBtn = function () {
-  var score = this.fliesEat.length * 100;
-  var name = document.getElementById("input-name").value;
+  this.score = this.fliesEat.length * 100;
+  this.name = document.getElementById("input-name").value;
     if(this.name !== "") {
-    this.addScore(name, score);
+    this.addScore(this.name, this.score);
     this.$gameoverPannel.hide();
     document.location.reload();
     }  
 }
 
 Game.prototype.addScore = function (name, value) {
-  var score = this.getScore();
-  score[name] = value;
-  localStorage.setItem('score', JSON.stringify(score));
+  this.score = this.getScore();
+  this.score[name] = value;
+  localStorage.setItem('score', JSON.stringify(this.score));
 }
 
 Game.prototype.getScore = function () {
-  var score = localStorage.getItem('score') || '{}';
-  return JSON.parse(score); 
+  this.score = localStorage.getItem('score') || '{}';
+  return JSON.parse(this.score); 
 }
 
 Game.prototype.showScore = function () {
   this.ctx.fillStyle="rgb(59,59,59)";
   this.ctx.font="bold 20px Verdana";
   this.ctx.fillText("Level " + this.fliesEat.length, 20, 35); 
+  this.ctx.fillText("Score " + this.fliesEat.length * 100, this.ctx.canvas.width - 140, 35); 
 }
 
 Game.prototype.clear = function () {
@@ -184,7 +184,7 @@ Game.prototype.start = function() {
 
       //LEVEL 1
 
-      if(this.fliesEat.length == 1){
+      if(this.fliesEat.length == 2){
         if(this.trees.length == 0){
           this.addTree();
           CAR_SPEED = -3.5;
@@ -193,35 +193,35 @@ Game.prototype.start = function() {
       
       //LEVEL 2
 
-      if(this.fliesEat.length == 2){
+      if(this.fliesEat.length == 4){
         if(this.woods.length == 0){
           this.woods.push(this.wood);
-          // this.cars.push(new Moto(this.ctx));
+          this.cars.push(new Moto(this.ctx));
         } 
       }
 
       //LEVEL 3
 
-      if(this.fliesEat.length == 3){
+      if(this.fliesEat.length == 6){
         if(this.trees.length == 5){
           this.trees = [];
           this.addCocodrile();
           WOOD_SPEED = 8;
-          // this.cars.push(new Moto2(this.ctx));
+          this.cars.push(new Moto2(this.ctx));
         }
       }
       //LEVEL 4
 
-      if(this.fliesEat.length == 4){ 
+      if(this.fliesEat.length == 8){ 
         WOOD_W = 350;
-        this.woods[0].w = WOOD_W;     
+        this.woods[0].w = WOOD_W; 
+        COCO_SPEED = 9;   
       }
 
       //LEVEL 5
 
-      if(this.fliesEat.length == 5){
-          //WOOD_SPEED = 8;
-          //CAR_SPEED = -8; 
+      if(this.fliesEat.length == 10){
+          CAR_SPEED = -8; 
           CAR_INTERVAL = 110;
       }
 
@@ -269,9 +269,6 @@ Game.prototype.countFlies = function() {
 Game.prototype.gameOver = function() {
   this.stop();
   this.$gameoverPannel.show(); 
-  // this.getScore();
-  // this.showBestScores();
-  
 }
 
 // COLISIONES
@@ -342,7 +339,7 @@ Game.prototype.addTree = function () {
 }
 
 Game.prototype.addFly = function () {
-  this.flies.push(new Fly(this.ctx, flyRandom(200, 1100))) 
+  this.flies.push(new Fly(this.ctx, random(200, 1100))) 
 }
 
 Game.prototype.addMoto = function () {
