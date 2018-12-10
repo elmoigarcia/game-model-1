@@ -19,7 +19,7 @@ function Frog(ctx) {
 
   this.y0 = this.y;
 
-  this.drawCount = 0; //contador de los frames
+  this.drawCount = 0;
 
   this.setListeners();
 }
@@ -137,9 +137,3 @@ Frog.prototype.collide = function(o) { //para saber cuando colisiona
   return colX && colY;
 }
 
-Frog.prototype.kill = function () {
-  this.cutY = 8;
-  // this.img.onload = function() {
-  //   this.draw();
-  // }.bind(this)
-}

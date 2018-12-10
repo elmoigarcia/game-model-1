@@ -31,8 +31,16 @@ function Game(canvasElement) {
   $('#back-box').click(this.onClickBackBtn.bind(this));
   $('#play-again-box').click(this.onClickPlayAgainBtn.bind(this));
   $('#save-box').click(this.onClickSaveSAcorenBtn.bind(this));
+
+  gameAudio = document.getElementById("game-sound");
+  gameAudio.controls = false;
+} 
+// MUSICA DEL JUEGO
+Game.prototype.playGameAudio = function() { 
+  gameAudio.play(); 
 } 
 
+// PANTALLA BEST SCORES
 Game.prototype.showBestScores = function () {
   this.bestScores = this.getScore();
   this.liScores = [];
@@ -60,6 +68,25 @@ Game.prototype.showBestScores = function () {
   }
 };
 
+Game.prototype.getScore = function () {
+  this.score = localStorage.getItem('score') || '{}';
+  return JSON.parse(this.score); 
+}
+
+Game.prototype.showScore = function () {
+  this.ctx.fillStyle="rgb(59,59,59)";
+  this.ctx.font="bold 20px Verdana";
+  this.ctx.fillText("Level " + this.fliesEat.length, 20, 35); 
+  this.ctx.fillText("Score " + this.fliesEat.length * 100, this.ctx.canvas.width - 140, 35); 
+}
+
+Game.prototype.addScore = function (name, value) {
+  this.score = this.getScore();
+  this.score[name] = value;
+  localStorage.setItem('score', JSON.stringify(this.score));
+}
+
+// BOTONES DE LOS MENUS
 Game.prototype.onClickPlayBtn = function () {
   this.$playPannel.hide();
   this.start();
@@ -90,24 +117,7 @@ Game.prototype.onClickSaveSAcorenBtn = function () {
     }  
 }
 
-Game.prototype.addScore = function (name, value) {
-  this.score = this.getScore();
-  this.score[name] = value;
-  localStorage.setItem('score', JSON.stringify(this.score));
-}
-
-Game.prototype.getScore = function () {
-  this.score = localStorage.getItem('score') || '{}';
-  return JSON.parse(this.score); 
-}
-
-Game.prototype.showScore = function () {
-  this.ctx.fillStyle="rgb(59,59,59)";
-  this.ctx.font="bold 20px Verdana";
-  this.ctx.fillText("Level " + this.fliesEat.length, 20, 35); 
-  this.ctx.fillText("Score " + this.fliesEat.length * 100, this.ctx.canvas.width - 140, 35); 
-}
-
+// JUEGO
 Game.prototype.clear = function () {
   this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 }
@@ -148,7 +158,7 @@ Game.prototype.start = function() {
   if(!this.isRunning()){
 
     this.initCar();
-    
+    this.playGameAudio();
     this.intervalId = setInterval(function() {
       this.clear();
       this.draw();
@@ -182,16 +192,13 @@ Game.prototype.start = function() {
         } 
       }
 
-      //LEVEL 1
+      // NIVELES
 
       if(this.fliesEat.length == 2){
         if(this.trees.length == 0){
           this.addTree();
-          CAR_SPEED = -3.5;
         } 
       }
-      
-      //LEVEL 2
 
       if(this.fliesEat.length == 4){
         if(this.woods.length == 0){
@@ -199,8 +206,6 @@ Game.prototype.start = function() {
           this.cars.push(new Moto(this.ctx));
         } 
       }
-
-      //LEVEL 3
 
       if(this.fliesEat.length == 6){
         if(this.trees.length == 5){
@@ -210,7 +215,6 @@ Game.prototype.start = function() {
           this.cars.push(new Moto2(this.ctx));
         }
       }
-      //LEVEL 4
 
       if(this.fliesEat.length == 8){ 
         WOOD_W = 350;
@@ -218,11 +222,12 @@ Game.prototype.start = function() {
         COCO_SPEED = 9;   
       }
 
-      //LEVEL 5
-
       if(this.fliesEat.length == 10){
-          CAR_SPEED = -8; 
-          CAR_INTERVAL = 110;
+        CAR_SPEED = -8; 
+      }
+
+      if(this.fliesEat.length == 11){
+        CAR_INTERVAL = 110;
       }
 
     }.bind(this), DRAW_INTERVAL_MS);
