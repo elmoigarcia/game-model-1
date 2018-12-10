@@ -15,6 +15,6 @@ Background.prototype.draw = function() {
       this.x,
       this.y,
       this.w,
-      this.h);
-  
+      this.h
+  );
 };
