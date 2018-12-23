@@ -273,7 +273,11 @@ Game.prototype.countFlies = function() {
 
 Game.prototype.gameOver = function() {
   this.stop();
-  this.$gameoverPannel.show(); 
+  if(this.fliesEat.length <= 4){
+    document.location.reload();
+    this.$playPannel.hide();
+    this.start();
+  } else {this.$gameoverPannel.show();}
 }
 
 // COLISIONES

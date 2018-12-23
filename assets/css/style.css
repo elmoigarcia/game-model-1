@@ -21,7 +21,10 @@ img {
   background-repeat: no-repeat;
   width: 520px;
   height: 600px;
-  margin-left: 450px;
+  top: 50%;
+  left:50%;
+  margin-top: -350px; 
+  margin-left: -260px;
 }
 
 #intro-page button{
@@ -99,7 +102,10 @@ input {
   position: absolute;
   width: 520px;
   height: 600px;
-  margin-left: 450px;
+  top: 50%;
+  left:50%;
+  margin-top: -350px; 
+  margin-left: -260px;
   font-size: 2rem;
   font-weight: bolder;
   transition: all 0.5s ease-out;
@@ -129,7 +135,10 @@ li{
   background-repeat: no-repeat;
   width: 520px;
   height: 600px;
-  margin-left: 450px;
+  top: 50%;
+  left:50%;
+  margin-top: -350px; 
+  margin-left: -260px;
   background-color: #67a653;
   font-size: 2rem;
   text-align: center;
